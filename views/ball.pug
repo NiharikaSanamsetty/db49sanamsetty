@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to the Ball pug 
+  div(class="container-fluid")
+        div(class="row")
+            -
+                let ball  = [
+                    {
+                        "color": "Blue",
+                        "material": "Steel",
+                        "cost": "10$"
+                    },
+                    {
+                        "color": "Pink",
+                        "material": "Rubber",
+                        "cost": "12$"
+                    },
+                    {
+                        "color": "Red",
+                        "material": "Plastic",
+                        "cost": "9$"
+                    }, 
+                    {
+                        "color": "Black",
+                        "material": "Copper",
+                        "cost": "29$"
+                    },                         
+                ]
+            each v,index in ball 
+                div(class="col-sm-2" onclick=`buy(${index})`) #{v.color}
+                div(class="col-sm-2" onclick=`buy(${index})`) #{v.material}
+                div(class="col-sm-2" onclick=`buy(${index})`) #{v.cost}
+        script. 
+            function buy(itemNo)
+            {
+                alert(`You purchased Item ${itemNo+1}`)
+            }    
+  
+        
