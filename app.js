@@ -3,13 +3,58 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var ball = require("./models/ball")
+
+const connectionString =  
+process.env.MONGO_CON 
+mongoose = require('mongoose'); 
+mongoose.connect(connectionString,  
+{useNewUrlParser: true, 
+useUnifiedTopology: true});
+
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+db.once("oball", function(){
+console.log("Connection to DB succeeded")});
+
+
+
+// We can seed the collection if needed on server start
+async function recreateDB(){
+  // Delete everything
+  await ball.deleteMany();
+  let instance1 = new ball({color:"Blue", material:'Steel',cost:10});
+  let instance2 = new ball({color:"Pink", material:'Rubber',cost:12});
+  let instance3 = new ball({color:"Red", material:'Plastic',cost:9});
+  let instance4 = new ball({color:"Black", material:'Copper',cost:29});
+  instance1.save( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("First object saved")
+  });
+  instance2.save( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("Second object saved")
+  });
+  instance3.save( function(err,doc) {
+    if(err) return console.error(err);
+    console.log("Third object saved")
+    });
+  }
+  let reseed = true;
+  if (reseed) { recreateDB();}
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var ballRouter = require('./routes/ball');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
-
+var ballRouter = require("./models/ball");
+var resourceRouter = require("./routes/resource");
 
 
 var app = express();
@@ -24,11 +69,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/ball', ballRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
+app.use('/ball', ballRouter);
+app.use('/resource', resourceRouter);
 
 
 
