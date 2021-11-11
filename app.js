@@ -42,6 +42,10 @@ async function recreateDB(){
     if(err) return console.error(err);
     console.log("Third object saved")
     });
+  instance4.save( function(err,doc) {
+      if(err) return console.error(err);
+      console.log("Fourth object saved")
+      });
   }
   let reseed = true;
   if (reseed) { recreateDB();}
@@ -53,7 +57,7 @@ var usersRouter = require('./routes/users');
 var ballRouter = require('./routes/ball');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
-var ballRouter = require("./models/ball");
+
 var resourceRouter = require("./routes/resource");
 
 
@@ -75,7 +79,7 @@ app.use('/users', usersRouter);
 app.use('/ball', ballRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
-app.use('/ball', ballRouter);
+
 app.use('/resource', resourceRouter);
 
 
