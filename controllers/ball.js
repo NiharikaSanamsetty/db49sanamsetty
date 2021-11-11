@@ -1,7 +1,14 @@
 var ball = require('../models/ball');
 // List of all balls
-exports.ball_list = function(req, res) {
-res.send('NOT IMPLEMENTED: ball list');
+exports.ball_list = async function(req, res) {
+    try{ 
+        let balls = await ball.find(); 
+        res.send(balls); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
 };
 // for a specific ball.
 exports.ball_detail = function(req, res) {
