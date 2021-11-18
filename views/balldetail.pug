@@ -1,0 +1,24 @@
+extends layout 
+ 
+block content 
+  h1= title 
+    if (toShow == null) 
+    h2 No instance to delete 
+  else 
+  - let ballid = toShow._id   
+  - let ballcolor  = toShow.color  
+  - let ballmaterial = toShow.material 
+  - let ballcost = toShow.cost  
+  div 
+    div.row 
+      div(class='ballAttr mr-3') Ball  ID is: 
+      div #{ballid}  
+    div.row 
+      div(class='ballAttr mr-3') Ball color  is: 
+      div #{ballcolor} 
+    div.row 
+      div(class='ballAttr mr-3') Ball material is: 
+      div #{ballmaterial} 
+    div.row 
+      div(class='ballAttr mr-3') Ball cost: 
+      div #{ballcost} 

@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+.ballAttr { 
+  background-color: rgb(238, 20, 238); 
+  width: 120px; 
+} 
