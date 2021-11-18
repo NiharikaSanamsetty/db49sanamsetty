@@ -34,9 +34,17 @@ exports.ball_create_post = async function (req, res) {
     }
 };
 // Handle ball delete form on DELETE.
-exports.ball_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: ball delete DELETE ' + req.params.id);
-};
+exports.ball_delete =  async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await ball.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
+}; 
 // Handle ball update form on PUT.
 exports.ball_update_put = async function (req, res) {
     console.log(`update on id ${req.params.id} with body
