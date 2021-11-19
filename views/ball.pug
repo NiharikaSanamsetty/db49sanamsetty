@@ -4,7 +4,7 @@ block content
   h1= title
   p Welcome to the Ball pug 
   div(class="container-fluid")
-        div(class="row")
+        div(class="row m-1")
             -
                 let ball  = [
                     {
@@ -29,13 +29,19 @@ block content
                     },                         
                 ]
             each v,index in ball 
+             - let destination = `dispatch(\"/ball/update?id=${v._id}\")`
                 div(class="col-sm-2" onclick=`buy(${index})`) #{v.color}
                 div(class="col-sm-2" onclick=`buy(${index})`) #{v.material}
                 div(class="col-sm-2" onclick=`buy(${index})`) #{v.cost}
+                button.btn( class="btn-primary ml-1", onclick= destination) Update 
         script. 
             function buy(itemNo)
             {
                 alert(`You purchased Item ${itemNo+1}`)
-            }    
+            }
+            
+            function dispatch(path){ 
+                 window.location.href=path 
+            }     
   
         
