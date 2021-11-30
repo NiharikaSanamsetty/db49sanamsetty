@@ -19,9 +19,8 @@ module.exports = router;
 /* GET detail ball page */ 
 router.get('/detail', ball_controlers.ball_view_one_Page); 
 /* GET create ball page */ 
-router.get('/create', ball_controlers.ball_create_Page); 
+router.get('/create',secured, ball_controlers.ball_create_Page); 
 /* GET create update page */ 
 router.get('/update',secured, ball_controlers.ball_update_Page);
 /* GET create costume page */ 
-router.get('/delete', ball_controlers.ball_delete_Page); 
- 
+router.get('/delete',secured, ball_controlers.ball_delete_Page); 

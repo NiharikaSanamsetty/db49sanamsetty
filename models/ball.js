@@ -1,7 +1,7 @@
 const mongoose = require("mongoose") 
 const ballSchema = mongoose.Schema({ 
     color: String, 
-    material: String, 
+    material: {type:String, required:true}, 
     cost: { type: Number, min: 5, max: 70, default: 0 }, 
 }) 
  
