@@ -10,10 +10,7 @@ exports.ball_list = async function (req, res) {
         res.send(`{"error": ${err}}`);
     }
 };
-// for a specific ball.
-exports.ball_detail = function (req, res) {
-    res.send('NOT IMPLEMENTED: ball detail: ' + req.params.id);
-};
+
 // Handle ball create on POST.
 exports.ball_create_post = async function (req, res) {
     console.log(req.body)
@@ -30,7 +27,8 @@ exports.ball_create_post = async function (req, res) {
         res.send(result);
     }
     catch (err) {
-        res.error(500, `{"error": ${err}}`);
+        res.status(500);
+        res.send(`{"error": ${err}}`);
     }
 };
 // Handle ball delete form on DELETE.
@@ -48,7 +46,7 @@ exports.ball_delete =  async function(req, res) {
 // Handle ball update form on PUT.
 exports.ball_update_put = async function (req, res) {
     console.log(`update on id ${req.params.id} with body
-${JSON.stringify(req.body)}`)
+   ${JSON.stringify(req.body)}`)
     try {
         let toUpdate = await ball.findById(req.params.id)
         // Do updates of properties
@@ -62,7 +60,7 @@ ${JSON.stringify(req.body)}`)
     } catch (err) {
         res.status(500)
         res.send(`{"error": ${err}: Update for id ${req.params.id}
-failed`);
+    failed`);
     }
 };
 
@@ -74,9 +72,11 @@ exports.ball_view_all_Page = async function (req, res) {
         res.render('ball', { title: 'ball Search Results', results: theball });
     }
     catch (err) {
-        res.error(500, `{"error": ${err}}`);
+        res.status(500);
+        res.send(`{"error": ${err}}`);
     }
 };
+
 // for a specific ball 
 exports.ball_detail = async function (req, res) {
     console.log("detail" + req.params.id)
@@ -95,7 +95,7 @@ exports.ball_view_one_Page = async function(req, res) {
     try{ 
         result = await ball.findById( req.query.id) 
         res.render('balldetail',  
-{ title: 'Ball Detail', toShow: result }); 
+            { title: 'Ball Detail', toShow: result }); 
     } 
     catch(err){ 
         res.status(500) 
@@ -136,8 +136,7 @@ exports.ball_delete_Page = async function(req, res) {
     console.log("Delete view for id "  + req.query.id) 
     try{ 
         result = await ball.findById(req.query.id) 
-        res.render('balldelete', { title: 'Ball Delete', toShow: 
-result }); 
+        res.render('balldelete', { title: 'Ball Delete', toShow: result }); 
     } 
     catch(err){ 
         res.status(500) 
